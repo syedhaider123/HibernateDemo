@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E8B584DB-76C3-4DCB-8DCF-9018366EF191}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DataAccess</RootNamespace>
+    <AssemblyName>DataAccess</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr3.Runtime.3.5.1\lib\net40-client\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentNHibernate, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentNHibernate.2.1.0\lib\net461\FluentNHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Iesi.Collections.4.0.2\lib\net461\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL" />
+    <Reference Include="NHibernate, Version=5.0.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\packages\NHibernate.5.0.3\lib\net461\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion.Linq, Version=2.1.0.0, Culture=neutral, PublicKeyToken=fee00910d6e5f53b, processorArchitecture=MSIL">
+      <HintPath>..\packages\Remotion.Linq.2.1.2\lib\net45\Remotion.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion.Linq.EagerFetching, Version=2.1.0.0, Culture=neutral, PublicKeyToken=fee00910d6e5f53b, processorArchitecture=MSIL">
+      <HintPath>..\packages\Remotion.Linq.EagerFetching.2.1.0\lib\net45\Remotion.Linq.EagerFetching.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DTO\EmployeeDTO.cs" />
+    <Compile Include="DTO\OrderDTO.cs" />
+    <Compile Include="DTO\LeadDTO.cs" />
+    <Compile Include="DTO\LeadModel.cs" />
+    <Compile Include="Helper.cs" />
+    <Compile Include="Mappings\Employees\Course.cs" />
+    <Compile Include="Mappings\Employees\CourseMap.cs" />
+    <Compile Include="Mappings\Employees\Department.cs" />
+    <Compile Include="Mappings\Employees\DepartmentMap.cs" />
+    <Compile Include="Mappings\Employees\Employee.cs" />
+    <Compile Include="Mappings\Employees\Employeedetail.cs" />
+    <Compile Include="Mappings\Employees\EmployeedetailMap.cs" />
+    <Compile Include="Mappings\Employees\EmployeeMap.cs" />
+    <Compile Include="Mappings\Employees\Employeeproject.cs" />
+    <Compile Include="Mappings\Employees\EmployeeprojectMap.cs" />
+    <Compile Include="Mappings\Employees\IgnoreAttribute.cs" />
+    <Compile Include="Mappings\Employees\Student.cs" />
+    <Compile Include="Mappings\Employees\StudentMap.cs" />
+    <Compile Include="Mappings\Employees\Sysdiagram.cs" />
+    <Compile Include="Mappings\Employees\SysdiagramMap.cs" />
+    <Compile Include="Mappings\GyScheduling.cs" />
+    <Compile Include="Mappings\GySchedulingMap.cs" />
+    <Compile Include="Mappings\GyTrans1.cs" />
+    <Compile Include="Mappings\GyTrans1Map.cs" />
+    <Compile Include="Mappings\GyTrans2.cs" />
+    <Compile Include="Mappings\GyTrans2Map.cs" />
+    <Compile Include="Mappings\inquiry1.cs" />
+    <Compile Include="Mappings\Inquiry1Map.cs" />
+    <Compile Include="Mappings\Inquiry2.cs" />
+    <Compile Include="Mappings\Inquiry2Map.cs" />
+    <Compile Include="Mappings\MBuyer1.cs" />
+    <Compile Include="Mappings\MBuyer1Map.cs" />
+    <Compile Include="Mappings\MBuyer2.cs" />
+    <Compile Include="Mappings\MBuyer2Map.cs" />
+    <Compile Include="Mappings\MBuyer3.cs" />
+    <Compile Include="Mappings\MBuyer3Map.cs" />
+    <Compile Include="Mappings\MCurrency.cs" />
+    <Compile Include="Mappings\MCurrencyMap.cs" />
+    <Compile Include="Mappings\MCustomer1.cs" />
+    <Compile Include="Mappings\MCustomer1Map.cs" />
+    <Compile Include="Mappings\MPorts.cs" />
+    <Compile Include="Mappings\MPortsMap.cs" />
+    <Compile Include="Mappings\MProductDesc.cs" />
+    <Compile Include="Mappings\MProductDescMap.cs" />
+    <Compile Include="Mappings\MShipmentPacking.cs" />
+    <Compile Include="Mappings\MShipmentPackingMap.cs" />
+    <Compile Include="Mappings\MShippingMarks.cs" />
+    <Compile Include="Mappings\MShippingMarksMap.cs" />
+    <Compile Include="Mappings\MUnit.cs" />
+    <Compile Include="Mappings\MUnitMap.cs" />
+    <Compile Include="Mappings\OldMappings\old_Employees.cs" />
+    <Compile Include="Mappings\OrderFollowup.cs" />
+    <Compile Include="Mappings\OrderFollowupMap.cs" />
+    <Compile Include="Mappings\OrderSheet1.cs" />
+    <Compile Include="Mappings\OrderSheet1Map.cs" />
+    <Compile Include="Mappings\OrderSheet2.cs" />
+    <Compile Include="Mappings\OrderSheet2Map.cs" />
+    <Compile Include="Mappings\OrderStatus.cs" />
+    <Compile Include="Mappings\OrderStatusMap.cs" />
+    <Compile Include="Mappings\OsScheduling.cs" />
+    <Compile Include="Mappings\OsSchedulingMap.cs" />
+    <Compile Include="Mappings\SalesContract1.cs" />
+    <Compile Include="Mappings\SalesContract1Map.cs" />
+    <Compile Include="Mappings\SalesContract2.cs" />
+    <Compile Include="Mappings\SalesContract2Map.cs" />
+    <Compile Include="Mappings\SalesContract3.cs" />
+    <Compile Include="Mappings\SalesContract3Map.cs" />
+    <Compile Include="Mappings\ShipmentDetailOs.cs" />
+    <Compile Include="Mappings\ShipmentDetailOsHist.cs" />
+    <Compile Include="Mappings\ShipmentDetailOsHistMap.cs" />
+    <Compile Include="Mappings\ShipmentDetailOsMap.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mappings\OldMappings\old_Employees.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

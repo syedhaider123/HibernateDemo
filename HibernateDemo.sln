@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HibernateDemo", "HibernateDemo\HibernateDemo.csproj", "{2B8587DC-31DC-4689-A44A-ACA239F70748}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataAccess", "DataAccess", "{20B09D58-BFF9-4F39-8C0C-7585E65393BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{E8B584DB-76C3-4DCB-8DCF-9018366EF191}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,9 +19,16 @@ Global
 		{2B8587DC-31DC-4689-A44A-ACA239F70748}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B8587DC-31DC-4689-A44A-ACA239F70748}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B8587DC-31DC-4689-A44A-ACA239F70748}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8B584DB-76C3-4DCB-8DCF-9018366EF191}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8B584DB-76C3-4DCB-8DCF-9018366EF191}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8B584DB-76C3-4DCB-8DCF-9018366EF191}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8B584DB-76C3-4DCB-8DCF-9018366EF191}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E8B584DB-76C3-4DCB-8DCF-9018366EF191} = {20B09D58-BFF9-4F39-8C0C-7585E65393BE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3B9D7D0D-4EDF-4F42-A383-03495285C453}
