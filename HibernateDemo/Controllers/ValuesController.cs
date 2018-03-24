@@ -6,6 +6,7 @@ using NHibernate;
 using NHibernate.Criterion;
 using NHibernate.SqlCommand;
 using NHibernate.Transform;
+using Sample.CustomerService.Domain;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -740,12 +741,7 @@ namespace HibernateDemo.Controllers
                                ValidityDate = g.Key.ValidityDate.HasValue ? g.Key.ValidityDate.Value.ToShortDateString() : "",
                                Remarks = g.Key.Remarks,
                                CustCode = g.Key.CustCode
-
-                               
                            };
-                                                                                      
-    
-
 
 
                 var metaData = new
@@ -2032,9 +2028,8 @@ namespace HibernateDemo.Controllers
         {
             ISession session = Helper.OpenSession();
 
-            Inquiry1 historyAlias = null;
-            Inquiry2 historyAlias2 = null;
-            MProductDesc productAlias = null;
+
+
 
             //IList<IDictionary> results = session.QueryOver<Inquiry1>(() => historyAlias)
             //    .JoinQueryOver(pr => pr.Inquiry2s, () => historyAlias2)
@@ -2095,6 +2090,15 @@ namespace HibernateDemo.Controllers
                                         };
 
 
+            Inquiry1 historyAlias = null;
+            Inquiry2 historyAlias2 = null;
+            MProductDesc productAlias = null;
+
+
+                              //.And(x => !userAlias.Deleted)
+                              //.And(x => !categoryAlias.Deleted);
+
+
             //var query = from inquiry in session.Query<Inquiry1>()
             //            join inq in session.Query<Inquiry2>()
             //            on inquiry.InquiryNo equals inq.Inquiry1.InquiryNo 
@@ -2114,7 +2118,7 @@ namespace HibernateDemo.Controllers
             //                where r.Post == "U"
             //                group new { r, s } by new { r.InquiryNo, r.InquiryDate }
             //                into grp
-                            
+
             //                select new LeadDTO
             //                {
             //                    //Count = grp.Count(),
@@ -2125,9 +2129,9 @@ namespace HibernateDemo.Controllers
             //                };
 
 
-           
 
-            
+
+
 
             var credit = from bm in session.Query<Inquiry1>()
                           join sms in session.Query<Inquiry2>() on bm.InquiryNo equals sms.Inquiry1.InquiryNo
@@ -2147,8 +2151,8 @@ namespace HibernateDemo.Controllers
                               
                   
                           };
-                          
-                          
+
+
 
 
 
@@ -2187,6 +2191,62 @@ namespace HibernateDemo.Controllers
             //     //Count = g.Select(x => x.c.CategoryID).Distinct().Count()
             // };
 
+            LeadDTO orderHeader = null;
+
+            //var query = session.QueryOver<Inquiry1>()
+            //                   .Left.JoinAlias(x => x.Inquiry2s, () => historyAlias)
+            //                   //.Left.JoinAlias(x => x.Category, () => categoryAlias)
+            //                   .Where(x => x.Post == "U")
+            //                .SelectList(list => list
+            //                .Select(o => o.Post).WithAlias(() => orderHeader.Post)
+            //                .Select(o => historyAlias.PostDate).WithAlias(() => orderHeader.InquiryNo)
+            //                //.Select(o => employee.FirstName).WithAlias(() => orderHeader.FirstName)
+            //                //.Select(o => employee.LastName).WithAlias(() => orderHeader.LastName))
+            //               .TransformUsing(Transformers.AliasToBean<LeadDTO>())
+            //               .Future<LeadDTO>();
+
+            Inquiry1 inquiry1 = null;
+            Inquiry2 inquiry2 = null;
+            LeadDTO _orderHeader = null;
+
+            /*
+            var orderHeaders = session.QueryOver<Inquiry1>()
+                .JoinAlias(o => o.Inquiry2s, () => inquiry1)
+                //.JoinAlias(o => o.Employee, () => employee)
+                .SelectList(list => list
+                    .Select(o => o.Post).WithAlias(() => _orderHeader.Post)
+                    //.Select(o => customer.Name).WithAlias(() => orderHeader.Name)
+                    //.Select(o => employee.FirstName).WithAlias(() => orderHeader.FirstName)
+                    //.Select(o => employee.LastName).WithAlias(() => orderHeader.LastName))
+                .TransformUsing(Transformers.AliasToBean<LeadDTO>())
+                .Future<LeadDTO>();
+                */
+
+            Inquiry1 employee = null;
+            Inquiry2 employeeProject = null;
+
+
+            //var pointLists = session.QueryOver<Inquiry1>(() => employee)
+            //.Left.JoinAlias<Inquiry2>(ppPoints => ppPoints.Inquiry2s, () => employeeProject)
+            //.List().Where(s => s.Post == "U");
+
+                 var results =
+                (from b  in session.Query<Inquiry1>().Where(b=>b.Post == "P")
+                 from  p  in 
+                 b.Inquiry2s.DefaultIfEmpty()
+                 select new { b.InquiryNo, b.CustomerInfo.CustName }).ToList()
+                .Select(x => new LeadDTO { InquiryNo = x.InquiryNo, CustomerName = x.CustName });
+
+                    //from person in session.Query<Inquiry1>()
+                    //join pet in session.Query<MCustomer1>() on person equals pet.CustCode into gj
+                    //from subpet in gj.DefaultIfEmpty()
+
+
+    //        var www =
+    //from p in s.Query < Product >
+    //from o in p.Orders.DefaultIfEmpty()
+    //group o by new { p.ProductId, p.ProductName } into grp
+    //select new { grp.Key.ProductId, grp.Key.ProductName, OrderCount = grp.Sum(x => x.Product != null ? 1 : 0) };
 
 
             var metaData = new
@@ -2194,12 +2254,12 @@ namespace HibernateDemo.Controllers
                 page = "1",
                 pages = "1",
                 perpage = "-1",
-                total = credit.Count(),
+                total = results.Count(),
                 sort = "asc",
                 field = "InquiryNo",
             };
 
-            var Ans = new { meta = metaData, data = credit };
+            var Ans = new { meta = metaData, data = results };
 
             HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
             return Request.CreateResponse(HttpStatusCode.OK, Ans);
@@ -2413,6 +2473,85 @@ namespace HibernateDemo.Controllers
 
 
         }
+
+
+        [HttpGet]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public dynamic GetAllCustomersByID(string customerID)
+        {
+
+            ISession session = Helper.OpenSession();
+
+
+
+            if (session != null)
+            {
+
+
+
+
+                // return query.List<HistoricalOrderSummary>() as List<HistoricalOrderSummary>;
+
+                // IQuery query = session
+                //  .GetNamedQuery("GetAllEmployees")
+                //// .SetInt32("UserID", user.UserID)
+                // .SetResultTransformer(
+                //         Transformers.AliasToBean(typeof(Customer)));
+
+                //  IList<Customer> query = session
+                //    .GetNamedQuery("GetAllEmployees")
+                ////.SetParameter("name", "%Development%")
+                //       .List<Customer>();
+
+                // var query = session.GetNamedQuery("GetAllEmployeess").List();
+                //return query.List<Customer>() as List<Customer>;
+
+                //var query = session.GetNamedQuery("GetAllEmployeess")
+                // .List<object[]>()
+                // .Select(obj => new Customer
+                //{
+                //    Customerid = (int)obj[0],
+                //    Customername = (string)obj[1]
+                //    //Color = (string)obj[2]
+                //})
+                //.ToList();
+
+                var query = session.CreateSQLQuery("exec GetAllEmployees")
+                .AddEntity(typeof(Customer))
+                //.SetInt32(0, customerNo)
+                //.SetDateTime(1, createdDate)
+                .List<Customer>();
+
+
+
+
+                var metaData = new
+                {
+                    page = "1",
+                    pages = "1",
+                    perpage = "-1",
+                    //total = query.(),
+                    sort = "asc",
+                    field = "InquiryNo",
+                };
+
+                var Ans = new { meta = metaData, data = query };
+
+
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
+                return Request.CreateResponse(HttpStatusCode.OK, query);
+            }
+            else
+            {
+
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.BadRequest);
+                return Request.CreateResponse(HttpStatusCode.OK, "No Records found");
+
+            }
+
+
+        }
+
 
 
 

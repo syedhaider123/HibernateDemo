@@ -69,6 +69,8 @@
     <Compile Include="Helper.cs" />
     <Compile Include="Mappings\Employees\Course.cs" />
     <Compile Include="Mappings\Employees\CourseMap.cs" />
+    <Compile Include="Mappings\Employees\Customer.cs" />
+    <Compile Include="Mappings\Employees\CustomerMap.cs" />
     <Compile Include="Mappings\Employees\Department.cs" />
     <Compile Include="Mappings\Employees\DepartmentMap.cs" />
     <Compile Include="Mappings\Employees\Employee.cs" />
@@ -141,6 +143,8 @@
   <ItemGroup>
     <EmbeddedResource Include="Mappings\OldMappings\old_Employees.hbm.xml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Mappings\Employees\Customer.hbm.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
